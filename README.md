@@ -10,6 +10,7 @@ Currently this library just includes the `ExternalIdsPart`, which does not exist
 
 ## Publish
 
-1. `npm run build-ui`
-2. `npm run build-pg`
-3. `./publish`
+1. update the library version numbers
+2. `npm run build-ui`
+3. `npm run build-pg`
+4. `./publish`
