@@ -28,6 +28,7 @@ export class ExternalIdsPartComponent
   extends ModelEditorComponentBase<ExternalIdsPart>
   implements OnInit
 {
+  public initialIds: ExternalId[];
   public ids: FormControl;
 
   // external-id-types
@@ -37,6 +38,7 @@ export class ExternalIdsPartComponent
 
   constructor(authService: AuthService, formBuilder: FormBuilder) {
     super(authService);
+    this.initialIds= [];
     // form
     this.ids = formBuilder.control(
       [],
@@ -56,7 +58,7 @@ export class ExternalIdsPartComponent
       this.form.reset();
       return;
     }
-    this.ids.setValue(model.ids || []);
+    this.initialIds = model.ids || [];
     this.form.markAsPristine();
   }
 
