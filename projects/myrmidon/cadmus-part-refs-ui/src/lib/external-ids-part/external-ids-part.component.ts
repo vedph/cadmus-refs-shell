@@ -2,13 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder } from '@angular/forms';
 
 import { ModelEditorComponentBase } from '@myrmidon/cadmus-ui';
-import { AuthService } from '@myrmidon/cadmus-api';
-import {
-  ThesaurusEntry,
-  deepCopy,
-  CadmusValidators,
-} from '@myrmidon/cadmus-core';
+import { ThesaurusEntry, CadmusValidators } from '@myrmidon/cadmus-core';
 import { ExternalId } from '@myrmidon/cadmus-refs-external-ids';
+import { AuthJwtService } from '@myrmidon/auth-jwt-login';
+import { deepCopy } from '@myrmidon/ng-tools';
 
 import {
   ExternalIdsPart,
@@ -31,21 +28,21 @@ export class ExternalIdsPartComponent
   public initialIds: ExternalId[];
   public ids: FormControl;
 
-  // external-id-types
-  public typeEntries: ThesaurusEntry[] | undefined;
+  // external-id-scopes
+  public scopeEntries: ThesaurusEntry[] | undefined;
   // external-id-tags
   public tagEntries: ThesaurusEntry[] | undefined;
 
-  constructor(authService: AuthService, formBuilder: FormBuilder) {
+  constructor(authService: AuthJwtService, formBuilder: FormBuilder) {
     super(authService);
-    this.initialIds= [];
+    this.initialIds = [];
     // form
     this.ids = formBuilder.control(
       [],
       CadmusValidators.strictMinLengthValidator(1)
     );
     this.form = formBuilder.group({
-      ids: this.ids
+      ids: this.ids,
     });
   }
 
@@ -55,11 +52,11 @@ export class ExternalIdsPartComponent
 
   private updateForm(model: ExternalIdsPart): void {
     if (!model) {
-      this.form.reset();
+      this.form?.reset();
       return;
     }
     this.initialIds = model.ids || [];
-    this.form.markAsPristine();
+    this.form?.markAsPristine();
   }
 
   protected onModelSet(model: ExternalIdsPart): void {
@@ -67,11 +64,11 @@ export class ExternalIdsPartComponent
   }
 
   protected onThesauriSet(): void {
-    let key = 'external-id-types';
+    let key = 'external-id-scopes';
     if (this.thesauri && this.thesauri[key]) {
-      this.typeEntries = this.thesauri[key].entries;
+      this.scopeEntries = this.thesauri[key].entries;
     } else {
-      this.typeEntries = undefined;
+      this.scopeEntries = undefined;
     }
 
     key = 'external-id-tags';
@@ -86,7 +83,7 @@ export class ExternalIdsPartComponent
     let part = this.model;
     if (!part) {
       part = {
-        itemId: this.itemId,
+        itemId: this.itemId || '',
         id: '',
         typeId: EXTERNAL_IDS_PART_TYPEID,
         roleId: this.roleId,

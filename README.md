@@ -14,3 +14,7 @@ Currently this library just includes the `ExternalIdsPart`, which does not exist
 2. `npm run build-ui`
 3. `npm run build-pg`
 4. `./publish`
+
+## History
+
+- 2021-12-19: upgraded to the [new shell](https://github.com/vedph/cadmus-shell).

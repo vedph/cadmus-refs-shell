@@ -1,6 +1,6 @@
 {
   "name": "@myrmidon/cadmus-part-refs-pg",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Cadmus - references parts UI component wrappers.",
   "keywords": [
     "Cadmus"
@@ -14,9 +14,8 @@
     "name": "Daniele Fusi"
   },
   "peerDependencies": {
-    "@angular/common": "^12.1.0",
-    "@angular/core": "^12.1.0",
-    "@myrmidon/cadmus-material": "^0.0.1"
+    "@angular/common": "^13.1.0",
+    "@angular/core": "^13.1.0"
   },
   "dependencies": {
     "tslib": "^2.2.0"

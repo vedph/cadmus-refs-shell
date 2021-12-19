@@ -41,6 +41,6 @@ export class ExternalIdsPartFeatureComponent
   }
 
   public ngOnInit(): void {
-    this.initEditor(['external-id-types', 'external-id-tags']);
+    this.initEditor(['external-id-scopes', 'external-id-tags']);
   }
 }

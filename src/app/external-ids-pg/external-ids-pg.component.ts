@@ -29,8 +29,8 @@ export class ExternalIdsPgComponent implements OnInit {
       ids: [],
     };
     this.thesauri = {
-      'external-id-types': {
-        id: 'external-id-types',
+      'external-id-scopes': {
+        id: 'external-id-scopes',
         entries: [
           {
             id: 'r',
