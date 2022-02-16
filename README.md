@@ -17,4 +17,5 @@ Currently this library just includes the `ExternalIdsPart`, which does not exist
 
 ## History
 
+- 2022-02-16: upgraded to use new bricks.
 - 2021-12-19: upgraded to the [new shell](https://github.com/vedph/cadmus-shell).
