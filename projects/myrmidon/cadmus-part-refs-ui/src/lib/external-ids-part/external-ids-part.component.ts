@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormBuilder } from '@angular/forms';
+import {
+  UntypedFormControl,
+  UntypedFormBuilder,
+  FormControl,
+  FormBuilder,
+} from '@angular/forms';
 
 import { ModelEditorComponentBase } from '@myrmidon/cadmus-ui';
 import { ThesaurusEntry, CadmusValidators } from '@myrmidon/cadmus-core';
-import { ExternalId } from '@myrmidon/cadmus-refs-external-ids';
 import { AuthJwtService } from '@myrmidon/auth-jwt-login';
 import { deepCopy } from '@myrmidon/ng-tools';
 
@@ -11,10 +15,12 @@ import {
   ExternalIdsPart,
   EXTERNAL_IDS_PART_TYPEID,
 } from '../external-ids-part';
+import { AssertedId } from '@myrmidon/cadmus-refs-asserted-ids';
 
 /**
  * External IDs part editor component.
- * Thesauri: external-id-types, external-id-tags (all optional).
+ * Thesauri: external-id-types, external-id-tags, assertion-tags,
+ * doc-reference-types, doc-reference-tags (all optional).
  */
 @Component({
   selector: 'cadmus-refs-external-ids-part',
@@ -25,22 +31,30 @@ export class ExternalIdsPartComponent
   extends ModelEditorComponentBase<ExternalIdsPart>
   implements OnInit
 {
-  public initialIds: ExternalId[];
-  public ids: FormControl;
+  public initialIds: AssertedId[];
+  public ids: FormControl<AssertedId[]>;
 
   // external-id-scopes
   public scopeEntries: ThesaurusEntry[] | undefined;
   // external-id-tags
   public tagEntries: ThesaurusEntry[] | undefined;
 
+  // thesauri for assertions:
+  // assertion-tags
+  public assTagEntries: ThesaurusEntry[] | undefined;
+  // doc-reference-types
+  public refTypeEntries: ThesaurusEntry[] | undefined;
+  // doc-reference-tags
+  public refTagEntries: ThesaurusEntry[] | undefined;
+
   constructor(authService: AuthJwtService, formBuilder: FormBuilder) {
     super(authService);
     this.initialIds = [];
     // form
-    this.ids = formBuilder.control(
-      [],
-      CadmusValidators.strictMinLengthValidator(1)
-    );
+    this.ids = formBuilder.control([], {
+      validators: CadmusValidators.strictMinLengthValidator(1),
+      nonNullable: true,
+    });
     this.form = formBuilder.group({
       ids: this.ids,
     });
@@ -64,7 +78,28 @@ export class ExternalIdsPartComponent
   }
 
   protected onThesauriSet(): void {
-    let key = 'external-id-scopes';
+    let key = 'assertion-tags';
+    if (this.thesauri && this.thesauri[key]) {
+      this.assTagEntries = this.thesauri[key].entries;
+    } else {
+      this.assTagEntries = undefined;
+    }
+
+    key = 'doc-reference-types';
+    if (this.thesauri && this.thesauri[key]) {
+      this.refTypeEntries = this.thesauri[key].entries;
+    } else {
+      this.refTypeEntries = undefined;
+    }
+
+    key = 'doc-reference-tags';
+    if (this.thesauri && this.thesauri[key]) {
+      this.refTagEntries = this.thesauri[key].entries;
+    } else {
+      this.refTagEntries = undefined;
+    }
+
+    key = 'external-id-scopes';
     if (this.thesauri && this.thesauri[key]) {
       this.scopeEntries = this.thesauri[key].entries;
     } else {
@@ -98,7 +133,7 @@ export class ExternalIdsPartComponent
     return part;
   }
 
-  public onIdsChange(ids: ExternalId[]): void {
+  public onIdsChange(ids: AssertedId[]): void {
     this.ids.setValue(ids);
   }
 }

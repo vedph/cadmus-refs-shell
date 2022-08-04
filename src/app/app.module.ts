@@ -39,7 +39,7 @@ import { MatTreeModule } from '@angular/material/tree';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { CadmusUiModule } from '@myrmidon/cadmus-ui';
-import { CadmusRefsExternalIdsModule } from '@myrmidon/cadmus-refs-external-ids';
+import { CadmusRefsAssertedIdsModule } from '@myrmidon/cadmus-refs-asserted-ids';
 import { CadmusCoreModule } from '@myrmidon/cadmus-core';
 import { CadmusStateModule } from '@myrmidon/cadmus-state';
 import { CadmusUiPgModule } from '@myrmidon/cadmus-ui-pg';
@@ -65,7 +65,7 @@ import { ExternalIdsPgComponent } from './external-ids-pg/external-ids-pg.compon
         { path: '**', component: HomeComponent },
       ],
       {
-        initialNavigation: 'enabled',
+        initialNavigation: 'enabledBlocking',
         useHash: true,
         relativeLinkResolution: 'legacy',
       }
@@ -104,7 +104,7 @@ import { ExternalIdsPgComponent } from './external-ids-pg/external-ids-pg.compon
     FlexLayoutModule,
     // Cadmus
     CadmusUiModule,
-    CadmusRefsExternalIdsModule,
+    CadmusRefsAssertedIdsModule,
     CadmusCoreModule,
     CadmusStateModule,
     CadmusUiModule,

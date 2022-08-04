@@ -13,10 +13,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 // Cadmus modules
 import { CadmusUiModule } from '@myrmidon/cadmus-ui';
-import { CadmusRefsExternalIdsModule } from '@myrmidon/cadmus-refs-external-ids';
 import { AuthJwtLoginModule } from '@myrmidon/auth-jwt-login';
 
 import { ExternalIdsPartComponent } from './external-ids-part/external-ids-part.component';
+import { CadmusRefsAssertedIdsModule } from '@myrmidon/cadmus-refs-asserted-ids';
 
 @NgModule({
   declarations: [ExternalIdsPartComponent],
@@ -36,7 +36,7 @@ import { ExternalIdsPartComponent } from './external-ids-part/external-ids-part.
     NgToolsModule,
     AuthJwtLoginModule,
     CadmusUiModule,
-    CadmusRefsExternalIdsModule,
+    CadmusRefsAssertedIdsModule,
   ],
   exports: [ExternalIdsPartComponent],
 })

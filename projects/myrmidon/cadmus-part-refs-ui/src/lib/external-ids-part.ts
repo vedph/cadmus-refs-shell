@@ -1,11 +1,11 @@
 import { Part } from '@myrmidon/cadmus-core';
-import { ExternalId } from '@myrmidon/cadmus-refs-external-ids';
+import { AssertedId } from '@myrmidon/cadmus-refs-asserted-ids';
 
 /**
  * The external ids part model.
  */
 export interface ExternalIdsPart extends Part {
-  ids: ExternalId[];
+  ids: AssertedId[];
 }
 
 /**
